@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 
 const animatedSections = [
@@ -82,15 +81,22 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-black overflow-x-hidden">
-      {/* Animated neon grid and floating icons */}
+      {/* Glowing animated cyberpunk background */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        {/* Glowing gradients */}
-        <div className="absolute w-full h-full bg-gradient-to-br from-cyan-900/10 via-purple-900/10 to-yellow-900/10" />
-        {/* Floating icons */}
-        <div className="absolute left-10 top-10 text-3xl animate-float duration-[6s] opacity-30 select-none">💻</div>
-        <div className="absolute right-10 top-32 text-3xl animate-float delay-2000 opacity-30 select-none">🎨</div>
-        <div className="absolute left-20 bottom-24 text-3xl animate-float delay-1000 opacity-30 select-none">⚡</div>
-        <div className="absolute right-32 bottom-10 text-3xl animate-float delay-3000 opacity-30 select-none">🔥</div>
+        {/* New animated gradients */}
+        <div className="absolute w-full h-full animate-fade-in" style={{
+          background:
+            "radial-gradient(circle at 20% 55%, rgba(0,255,255,0.13) 0%, transparent 70%)," +
+            "radial-gradient(circle at 80% 20%, rgba(255,0,255,0.10) 0%, transparent 65%)," +
+            "radial-gradient(circle at 50% 80%, rgba(255,255,0,0.12) 0%, transparent 60%)",
+        }} />
+        {/* Neon grid lines */}
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-800/10 via-purple-900/10 to-yellow-900/15" />
+        {/* Floating animated icons */}
+        <div className="absolute left-12 top-16 text-4xl animate-float opacity-40 select-none">💻</div>
+        <div className="absolute right-16 top-36 text-4xl animate-float delay-2000 opacity-40 select-none">🎨</div>
+        <div className="absolute left-24 bottom-28 text-4xl animate-float delay-1000 opacity-40 select-none">⚡</div>
+        <div className="absolute right-24 bottom-12 text-4xl animate-float delay-3000 opacity-40 select-none">🔥</div>
       </div>
 
       {/* Header */}
@@ -110,12 +116,10 @@ const Index = () => {
       </header>
 
       {/* Hero */}
-      <section id="home" className="hero min-h-screen flex flex-col justify-center items-center text-center relative animate-fade-in pt-32">
-        <h1 className="neon-text text-5xl md:text-6xl font-extrabold mb-2 tracking-widest">Pranavi Pulluri</h1>
-        <p className="subtitle neon-text text-xl md:text-2xl mb-4 font-semibold">Full Stack Developer & AI Enthusiast</p>
-        {/* Typing effect */}
+      <section id="home" className="hero min-h-screen flex flex-col justify-center items-center text-center relative animate-fade-in pt-40 z-10">
+        <h1 className="neon-text text-5xl md:text-6xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_25px_cyan]">Pranavi Pulluri</h1>
+        <p className="subtitle neon-text text-xl md:text-2xl mb-4 font-semibold text-fuchsia-300">Full Stack Developer & AI Enthusiast</p>
         <TypingText />
-        {/* Tech stack rotating carousel */}
         <div className="mt-8">
           <h3 className="text-lg md:text-xl text-cyan-300 mb-5 font-mono">Technologies &amp; Tools I Master</h3>
           <TechCarousel />
@@ -123,28 +127,26 @@ const Index = () => {
       </section>
 
       {/* About Me */}
-      <section id="about" className="section max-w-3xl mx-auto py-20 md:py-32">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-6 relative">About Me</h2>
-        <div className="text-lg text-gray-200 mx-auto font-mono leading-relaxed animate-rainbow">
+      <section id="about" className="section max-w-3xl mx-auto py-20 md:py-32 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-6 relative text-center text-cyan-400">About Me</h2>
+        <div className="text-lg text-gray-200 font-mono leading-relaxed animate-rainbow text-center">
           <p>
-            I'm a passionate Computer Science student specializing in Data Science with <span className="text-yellow-300 font-bold">9.23 GPA</span> at VNR VJIET.<br/>
-            Currently working as a Student Developer at Campus Automation and interning at Saola Innovations.<br/>
+            I'm a passionate Computer Science student specializing in Data Science with <span className="text-yellow-300 font-bold">9.23 GPA</span> at VNR VJIET.<br />
+            Currently working as a Student Developer at Campus Automation and interning at Saola Innovations.<br />
             I excel in full-stack development, AI/ML, and mobile app development.
           </p>
           <br />
           <p>
-            My expertise spans Python, React.js, Android development, and cutting-edge AI technologies like
-            TensorFlow and Computer Vision. I've built innovative projects from AI-powered traffic systems to
-            e-commerce platforms, always focusing on real-world impact and technical excellence.
+            My expertise: <span className="text-yellow-200">Python</span>, <span className="text-fuchsia-300">React.js</span>, <span className="text-cyan-300">Android</span>, <span className="text-yellow-200">TensorFlow</span>, and more. Built projects from AI traffic to e-commerce, focusing on <span className="text-fuchsia-300">real impact</span> and <span className="text-yellow-200">tech excellence</span>.
           </p>
         </div>
       </section>
 
       {/* Experience */}
-      <section id="experience" className="section py-20 md:py-32 max-w-3xl mx-auto flex flex-col items-center">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-6 relative">Experience</h2>
-        {/* Animated card tilt on hover */}
-        <div ref={expCardRef} className="exp-card bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/50 to-yellow-900/70 neon-border shadow-lg rounded-2xl p-8 md:p-12 max-w-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 cursor-pointer mb-6">
+      <section id="experience" className="section py-20 md:py-32 max-w-3xl mx-auto flex flex-col items-center animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-6 text-cyan-400">Experience</h2>
+        {/* Neon animated card tilt */}
+        <div ref={expCardRef} className="exp-card bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/50 to-yellow-900/70 neon-border shadow-lg rounded-2xl p-8 md:p-12 max-w-xl transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 cursor-pointer mb-6 animate-fade-in">
           <div className="flex items-center mb-3">
             <span className="text-3xl mr-3">🧑‍💻</span>
             <span className="text-xl md:text-2xl font-semibold text-fuchsia-300">Full Stack Developer Intern</span>
@@ -157,10 +159,10 @@ const Index = () => {
               Building bespoke <span className="font-bold text-yellow-300">Law Firm Websites</span> using <span className="text-fuchsia-400">WordPress</span>, <span className="text-fuchsia-400">HTML</span>, <span className="text-fuchsia-400">CSS</span>, <span className="text-fuchsia-400">SQL</span>
             </li>
             <li>
-              Direct, regular <span className="text-cyan-200 font-bold">client interactions</span> to gather requirements and deliver solutions
+              Direct, regular <span className="text-cyan-200 font-bold">client interactions</span> for requirements and solutions
             </li>
             <li>
-              Responsible for design, development, deployment, and ongoing support of client sites
+              Design, development, deployment, and ongoing support of client sites
             </li>
           </ul>
           <div className="flex flex-wrap gap-2 mt-4">
@@ -173,9 +175,9 @@ const Index = () => {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="section max-w-6xl mx-auto py-20 md:py-32">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10">Featured Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in">
+      <section id="projects" className="section max-w-6xl mx-auto py-20 md:py-32 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Featured Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
               name: "LocalMart - AI Shopping Platform",
@@ -223,8 +225,8 @@ const Index = () => {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="section max-w-6xl mx-auto py-20 md:py-32">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10">Technical Skills</h2>
+      <section id="skills" className="section max-w-6xl mx-auto py-20 md:py-32 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Technical Skills</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Programming */}
           <div className="bg-gradient-to-b from-black/70 via-cyan-900/20 to-yellow-900/30 neon-border rounded-xl px-8 py-7">
@@ -266,8 +268,8 @@ const Index = () => {
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="section max-w-4xl mx-auto py-20 md:py-32 flex flex-col items-center">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10">Certifications</h2>
+      <section id="certifications" className="section max-w-4xl mx-auto py-20 md:py-32 flex flex-col items-center animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Certifications</h2>
         <div className="flex flex-wrap gap-8 justify-center">
           {certifications.map((item) => (
             <div
@@ -283,13 +285,13 @@ const Index = () => {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="section max-w-xl mx-auto py-20 md:py-32">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-8">Get In Touch</h2>
+      <section id="contact" className="section max-w-xl mx-auto py-20 md:py-32 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-8 text-cyan-400">Get In Touch</h2>
         <ContactForm />
       </section>
 
       {/* Footer */}
-      <footer className="bg-black/80 text-center py-8 border-t border-cyan-400/20">
+      <footer className="bg-black/80 text-center py-8 border-t border-cyan-400/20 z-10">
         <div className="flex flex-wrap justify-center gap-8 mb-2">
           <FooterLink href="https://github.com/Pranavipulluri" icon="🐙">
             GitHub
