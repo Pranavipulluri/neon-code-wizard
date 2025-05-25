@@ -95,6 +95,7 @@
 
   body {
     @apply bg-background text-foreground;
+    /* Use rocket emoji as custom cursor, center hotspot */
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🚀</text></svg>') 12 12, auto;
   }
 }
