@@ -16,15 +16,9 @@ const animatedSections = [
 // Projects, skills, certifications, achievements, etc.
 type Project = {
   name: string;
-  desc:
-    "Centralizes local seller info. Empowers community & real-time inventory using e-commerce + AI.",
-  tech: [
-    "Java",
-    "Android Studio",
-    "Firebase",
-    "ML Kit"
-  ],
-  date: "Oct ’24"
+  desc: string;
+  tech: string[];
+  date: string;
 };
 
 const projects: Project[] = [
