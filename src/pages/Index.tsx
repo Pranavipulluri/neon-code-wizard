@@ -14,7 +14,20 @@ const animatedSections = [
 ];
 
 // Projects, skills, certifications, achievements, etc.
-const projects = [
+type Project = {
+  name: string;
+  desc:
+    "Centralizes local seller info. Empowers community & real-time inventory using e-commerce + AI.",
+  tech: [
+    "Java",
+    "Android Studio",
+    "Firebase",
+    "ML Kit"
+  ],
+  date: "Oct ’24"
+};
+
+const projects: Project[] = [
   {
     name: "LocalMart – AI-driven Local Shopping Platform",
     desc:
@@ -223,7 +236,13 @@ const education = [
 ];
 
 // Skills: show as animated skill bars & maybe a tabbed UI in large screens
-const skillsData = [
+type SkillBarType = { name: string; level: number };
+type SkillCategory = {
+  category: string;
+  skills: SkillBarType[];
+};
+
+const skillsData: SkillCategory[] = [
   {
     category: "Programming",
     skills: [
@@ -588,9 +607,9 @@ function TechCarousel() {
 }
 
 // Rotating (animated) project carousel for projects
-function ProjectRotator({ projects }: { projects: typeof projects }) {
+function ProjectRotator({ projects }: { projects: Project[] }) {
   const [index, setIndex] = React.useState(0);
-  useEffect(() => {
+  React.useEffect(() => {
     const t = setInterval(() => setIndex((idx) => (idx + 1) % projects.length), 3200);
     return () => clearInterval(t);
   }, [projects.length]);
@@ -640,7 +659,7 @@ function ProjectRotator({ projects }: { projects: typeof projects }) {
 }
 
 // Skills as tabs (category tabs, animated bars)
-function SkillTabs({ skillsData }: { skillsData: typeof skillsData }) {
+function SkillTabs({ skillsData }: { skillsData: SkillCategory[] }) {
   const [active, setActive] = React.useState(0);
   return (
     <div>
