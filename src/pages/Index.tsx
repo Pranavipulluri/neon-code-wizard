@@ -32,7 +32,7 @@ const projects: Project[] = [
       "Firebase",
       "ML Kit"
     ],
-    date: "Oct ’24"
+    date: "Oct '24"
   },
   {
     name: "SmartVend – Digitalized Sanitary Pad Vending Machine Interface",
@@ -45,7 +45,7 @@ const projects: Project[] = [
       "Tailwind CSS",
       "Razorpay API"
     ],
-    date: "Feb ’25"
+    date: "Feb '25"
   },
   {
     name: "SmartShield – AI-Powered Traffic Safety & Management",
@@ -58,7 +58,7 @@ const projects: Project[] = [
       "TensorFlow",
       "Flask"
     ],
-    date: "Jan ’25"
+    date: "Jan '25"
   },
   {
     name: "AllMadeEasy – Community Hub Web Application",
@@ -73,7 +73,7 @@ const projects: Project[] = [
       "SQLite",
       "News API"
     ],
-    date: "Feb ’25"
+    date: "Feb '25"
   },
   {
     name: "Fake News Detection System",
@@ -130,7 +130,7 @@ const experiences = [
     points: [
       "Designed UI for Flutter app & Figma website.",
       "Implemented SSO to simplify authentication.",
-      "Collaborated on the campus “mother app”."
+      "Collaborated on the campus "mother app"."
     ],
     icon: "🏫"
   },
