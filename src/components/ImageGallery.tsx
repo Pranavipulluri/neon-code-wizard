@@ -1,15 +1,20 @@
-
 import React from "react";
 
-// Place your image file names in this array (adjust the paths as needed)
-// If files are in /public/uploads/ or similar, change accordingly. For now using Unsplash placeholders:
+// Display your uploaded images in the gallery
 const images = [
-  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-  "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
-  "https://images.unsplash.com/photo-1518770660439-4636190af475",
   "/uploaded/1.jpg",
   "/uploaded/2.jpg",
-  "/uploaded/3.jpg"
+  "/uploaded/3.jpg",
+  "/uploaded/4.jpg",
+  "/uploaded/5.jpg",
+  "/uploaded/6.jpg",
+  "/uploaded/7.jpg",
+  "/uploaded/8.jpg",
+  "/uploaded/9.jpg",
+  // Optionally, keep these Unsplash placeholders as fallback or extra slides:
+  // "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+  // "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
+  // "https://images.unsplash.com/photo-1518770660439-4636190af475"
 ];
 
 export default function ImageGallery() {
