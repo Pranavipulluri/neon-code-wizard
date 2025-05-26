@@ -353,7 +353,6 @@ const Index = () => {
     animatedSections.forEach((id) => {
       const el = document.querySelector(id);
       if (el) {
-        el.classList.add("opacity-0", "translate-y-8");
         observer.observe(el);
       }
     });
