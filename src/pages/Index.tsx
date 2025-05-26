@@ -134,7 +134,7 @@ const experiences = [
     points: [
       "Designed UI for Flutter app & Figma website.",
       "Implemented SSO to simplify authentication.",
-      "Collaborated on the campus "mother app"."
+      "Collaborated on the campus \"mother app\"."
     ],
     icon: "🏫"
   },
