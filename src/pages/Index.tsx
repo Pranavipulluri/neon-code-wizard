@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { Rocket } from "lucide-react";
+import ImageGallery from "../components/ImageGallery";
+import AchievementGallery from "../components/AchievementGallery";
+import AnimatedSkills from "../components/AnimatedSkills";
+import CareerJourneyChart from "../components/CareerJourneyChart";
 
 const animatedSections = [
   "#about",
@@ -397,6 +401,16 @@ const Index = () => {
       </header>
       {/* Hero Section */}
       <section id="home" className="hero min-h-screen flex flex-col justify-center items-center text-center relative animate-fade-in pt-44 z-10">
+        {/* Game/Storybook Effect */}
+        <div className="w-full flex flex-col items-center mb-8">
+          <div className="terminal-glow text-left font-mono px-4 py-3 text-lg max-w-xl mx-auto rounded-xl bg-gradient-to-br from-black/90 via-cyan-950/95 to-fuchsia-950/90 border border-cyan-400/40 shadow-xl animate-fade-in">
+            <span className="text-fuchsia-300">Welcome Adventurer!</span>
+            <br/>
+            <span>Start your journey: <span className="text-cyan-300">_an interactive portfolio quest_</span></span>
+            <br/>
+            <span className="text-fuchsia-400">[Press down ↓ to explore]</span>
+          </div>
+        </div>
         <h1 className="neon-text text-6xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">Pranavi Pulluri</h1>
         <p className="subtitle neon-text text-2xl mb-4 font-semibold text-fuchsia-300">
           Full Stack Developer & AI Enthusiast
@@ -406,6 +420,11 @@ const Index = () => {
           <h3 className="text-xl text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
           <TechCarousel />
         </div>
+      </section>
+      {/* Gallery - Your Images (rotating/animated) */}
+      <section id="gallery" className="section max-w-4xl mx-auto py-20 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400 text-center">Gallery</h2>
+        <ImageGallery />
       </section>
       {/* About Me */}
       <section id="about" className="section max-w-3xl mx-auto py-20 animate-fade-in z-10">
@@ -465,10 +484,17 @@ const Index = () => {
         <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Featured Projects</h2>
         <ProjectRotator projects={projects} />
       </section>
-      {/* Skills */}
+      {/* Skills - replace SkillTabs with AnimatedSkills */}
       <section id="skills" className="section max-w-6xl mx-auto py-20 animate-fade-in z-10">
         <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Technical Skills</h2>
-        <SkillTabs skillsData={skillsData} />
+        <AnimatedSkills />
+      </section>
+      {/* Animated Data Visualization */}
+      <section id="journey" className="section max-w-5xl mx-auto py-20 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400 text-center">
+          Career/Learning Journey (Animated)
+        </h2>
+        <CareerJourneyChart />
       </section>
       {/* Certifications */}
       <section id="certifications" className="section max-w-4xl mx-auto py-20 animate-fade-in z-10">
@@ -483,9 +509,11 @@ const Index = () => {
           ))}
         </div>
       </section>
-      {/* Achievements */}
+      {/* Achievements Gallery */}
       <section id="achievements" className="section max-w-5xl mx-auto py-16 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400 text-center">Achievements & Distinctions</h2>
+        <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400 text-center">Achievements & Distinctions (with Photos)</h2>
+        <AchievementGallery />
+        {/* ... keep existing achievement list for text ... */}
         <ul className="px-2 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-12 font-mono text-lg text-yellow-200 animate-pulse">
           {achievements.map((ach) => (
             <li key={ach} className="flex items-center gap-3">
