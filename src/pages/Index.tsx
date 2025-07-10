@@ -3,7 +3,6 @@ import { Rocket } from "lucide-react";
 import ImageGallery from "../components/ImageGallery";
 import AchievementGallery from "../components/AchievementGallery";
 import AnimatedSkills from "../components/AnimatedSkills";
-import CareerJourneyChart from "../components/CareerJourneyChart";
 
 const animatedSections = [
   "#about",
@@ -154,9 +153,10 @@ const experiences = [
     title: "Full Stack Developer Intern",
     date: "2024 – Present",
     points: [
-      "Building bespoke law firm websites (WordPress, HTML, CSS, SQL).",
+      "Built WordPress law firm website with custom themes and plugins.",
       "Directly interact with clients for requirements/solutions.",
-      "Design, dev, deployment, and site support."
+      "Design, dev, deployment, and site support.",
+      "Created responsive legal practice management system."
     ],
     icon: "👩‍💻"
   }
@@ -262,7 +262,8 @@ const skillsData: SkillCategory[] = [
       { name: "Express.js", level: 88 },
       { name: "MongoDB", level: 85 },
       { name: "MySQL", level: 88 },
-      { name: "Web Scraping", level: 86 }
+      { name: "Web Scraping", level: 86 },
+      { name: "WordPress", level: 88 }
     ]
   },
   {
@@ -499,13 +500,45 @@ const Index = () => {
       <section id="skills" className="section max-w-6xl mx-auto py-20 animate-fade-in z-10">
         <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Technical Skills</h2>
         <AnimatedSkills />
-      </section>
-      {/* Animated Data Visualization */}
-      <section id="journey" className="section max-w-5xl mx-auto py-20 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400 text-center">
-          Career/Learning Journey (Animated)
-        </h2>
-        <CareerJourneyChart />
+        
+        {/* Coding Profiles */}
+        <div className="mt-16 text-center">
+          <h3 className="neon-text text-2xl font-bold mb-8 text-fuchsia-400">Coding Profiles</h3>
+          <div className="flex flex-wrap justify-center gap-6">
+            <a href="https://smartinterviews.in/profile/pulluripranavi" target="_blank" rel="noopener noreferrer" 
+               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+              <span className="text-2xl">🧠</span>
+              <div className="text-left">
+                <div className="text-cyan-300 font-semibold">SmartInterviews</div>
+                <div className="text-gray-400 text-sm">Problem Solving</div>
+              </div>
+            </a>
+            <a href="https://www.hackerrank.com/profile/pulluripranavi" target="_blank" rel="noopener noreferrer"
+               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+              <span className="text-2xl">⚡</span>
+              <div className="text-left">
+                <div className="text-cyan-300 font-semibold">HackerRank</div>
+                <div className="text-gray-400 text-sm">Algorithms & DS</div>
+              </div>
+            </a>
+            <a href="https://leetcode.com/u/pulluripranavi/" target="_blank" rel="noopener noreferrer"
+               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+              <span className="text-2xl">💡</span>
+              <div className="text-left">
+                <div className="text-cyan-300 font-semibold">LeetCode</div>
+                <div className="text-gray-400 text-sm">Competitive Coding</div>
+              </div>
+            </a>
+            <a href="https://www.interviewbit.com/profile/pranavi-pullurib9/" target="_blank" rel="noopener noreferrer"
+               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+              <span className="text-2xl">🎯</span>
+              <div className="text-left">
+                <div className="text-cyan-300 font-semibold">InterviewBit</div>
+                <div className="text-gray-400 text-sm">Interview Prep</div>
+              </div>
+            </a>
+          </div>
+        </div>
       </section>
       {/* Certifications */}
       <section id="certifications" className="section max-w-4xl mx-auto py-20 animate-fade-in z-10">
