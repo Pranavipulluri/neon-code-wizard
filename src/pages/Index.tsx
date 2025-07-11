@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { Rocket } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Rocket, ChevronLeft, ChevronRight, Award, Clock } from "lucide-react";
+import '../styles/carousel.css'; // ADD THIS LINE
 import ImageGallery from "../components/ImageGallery";
 import AchievementGallery from "../components/AchievementGallery";
 import AnimatedSkills from "../components/AnimatedSkills";
 import StarfieldBackground from "../components/StarfieldBackground";
+//import ProjectRotator from "../components/ProjectRotator";
+
+
 
 const animatedSections = [
   "#about",
@@ -344,6 +348,39 @@ const socials = [
 ];
 
 const Index = () => {
+const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [carouselRotation, setCarouselRotation] = useState(0);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
+
+  // ✅ ADD THESE HANDLER FUNCTIONS HERE
+  // ✅ UPDATED HANDLER FUNCTIONS
+
+const handleCardFlip = (index: number) => {
+  console.log('Card clicked:', index, 'Current card:', currentCardIndex);
+  
+  // Only flip if this is the current card
+  if (index === currentCardIndex) {
+    console.log('Flipping card:', index);
+    setFlippedCards(prev => {
+      const newFlipped = prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index];
+      console.log('Flipped cards:', newFlipped);
+      return newFlipped;
+    });
+  }
+};
+const nextCard = () => {
+  setCarouselRotation(prev => prev - (360 / certifications.length));
+  // Reset flipped cards when rotating
+  setFlippedCards([]);
+};
+
+const prevCard = () => {
+  setCarouselRotation(prev => prev + (360 / certifications.length));
+  // Reset flipped cards when rotating
+  setFlippedCards([]);
+};
   // Cool fade-in & floating animation on sections
   useEffect(() => {
     const callback = (entries: IntersectionObserverEntry[]) => {
@@ -400,22 +437,32 @@ const Index = () => {
       </header>
       {/* Hero Section with 3D Robot */}
       <section id="home" className="hero min-h-screen flex items-center justify-center relative animate-fade-in pt-20 z-10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="max-w-7xl mx-auto px- grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           
-          {/* Left Side - 3D Robot */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-lg h-96 lg:h-[500px] overflow-hidden rounded-2xl">
-              <spline-viewer 
-                url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
-                className="w-full"
-                style={{ 
-                  transform: 'translateY(-200px)', 
-                  height: '800px', 
-                  width: '100%'
-                }}
-              ></spline-viewer>
-            </div>
-          </div>
+<div
+  style={{
+    width: '100%',
+    height: '600px', // More space for full robot
+    overflow: 'hidden',
+    position: 'relative',
+  }}
+>
+  <spline-viewer
+    url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
+    style={{
+      height: '130%',
+      width: '100%',
+      transform: 'translateY(-40px)', // Less cropping
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      objectFit: 'cover',
+      pointerEvents: 'none',
+    }}
+  ></spline-viewer>
+</div>
+
+
 
           {/* Right Side - Greeting & Portfolio Content */}
           <div className="text-center lg:text-left space-y-6">
@@ -469,18 +516,11 @@ const Index = () => {
               Welcome to my digital realm. I'm a Full Stack Developer passionate about creating innovative web solutions and exploring the endless possibilities of technology.
             </div>
 
-            {/* Main Title */}
-            <h1 className="neon-text text-3xl lg:text-5xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">
-              Pranavi Pulluri
-            </h1>
-            <p className="subtitle neon-text text-lg lg:text-2xl mb-4 font-semibold text-fuchsia-300">
-              Full Stack Developer & AI Enthusiast
-            </p>
             
             <TypingText />
             
             <div className="mt-8">
-              <h3 className="text-base lg:text-lg text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
+              <h3 className="text-base lg:text-lg text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I'm Exploring</h3>
               <TechCarousel />
             </div>
           </div>
@@ -497,7 +537,7 @@ const Index = () => {
         <div className="text-lg text-gray-200 font-mono text-center animate-rainbow leading-relaxed">
           <p>
             I'm a passionate Computer Science student—Data Science, AI/ML, and full-stack projects. <br />
-            GPA: <span className="text-yellow-300 font-bold">9.23</span> at VNR VJIET.
+            GPA: <span className="text-yellow-300 font-bold">8.98</span> at VNR VJIET.
             <br />
             Currently at <span className="text-fuchsia-300 font-semibold">Campus Automation</span> &amp; 
             <span className="text-yellow-300 font-semibold"> Saola Innovations</span>, with a flair for creativity and community impact.
@@ -549,6 +589,8 @@ const Index = () => {
         <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Featured Projects</h2>
         <ProjectRotator projects={projects} />
       </section>
+
+
       {/* Skills - replace SkillTabs with AnimatedSkills */}
       <section id="skills" className="section max-w-6xl mx-auto py-20 animate-fade-in z-10">
         <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Technical Skills</h2>
@@ -594,18 +636,139 @@ const Index = () => {
         </div>
       </section>
       {/* Certifications */}
-      <section id="certifications" className="section max-w-4xl mx-auto py-20 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400">Certifications</h2>
-        <div className="flex flex-wrap gap-6 justify-center">
-          {certifications.map((cert) => (
-            <div key={cert.title} className="flex flex-col items-center bg-gradient-to-br from-cyan-900/60 via-fuchsia-900/20 to-yellow-700/10 neon-border rounded-2xl p-6 shadow mb-1 animate-fade-in min-w-[215px] max-w-xs">
-              <span className="text-4xl mb-3 animate-bounce">{cert.icon}</span>
-              <div className="text-yellow-200 font-semibold text-lg text-center mb-1">{cert.title}</div>
-              <div className="text-fuchsia-200 text-center text-sm">{cert.detail}</div>
+
+{/* Certifications */}
+<section id="certifications" className="section max-w-7xl mx-auto py-20 animate-fade-in z-10 relative">
+  <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400 text-center">Certifications</h2>
+  
+  <div className="carousel-3d-container relative h-[500px] flex justify-center items-center">
+    {/* Carousel Container */}
+    <div 
+      className="carousel-3d relative w-[400px] h-[400px] transition-transform duration-500 ease-out"
+      style={{ transform: `rotateY(${carouselRotation}deg)` }}
+    >
+      {certifications.map((cert, index) => {
+        const angle = (360 / certifications.length) * index;
+        const radius = 300;
+        
+        return (
+          <div
+            key={index}
+            className="carousel-card absolute w-[280px] h-[400px] left-1/2 top-1/2 -ml-[140px] -mt-[200px] transition-transform duration-700 cursor-pointer"
+            style={{
+              transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
+            }}
+            onClick={() => handleCardFlip(index)}
+          >
+            {/* Card Inner Container */}
+            <div className={`card-inner-3d transition-transform duration-700 ${flippedCards.includes(index) ? 'flipped' : ''}`}>
+              
+              {/* Card Front - WITH IMAGE */}
+              <div className="card-face rounded-2xl overflow-hidden card-shadow border border-purple-500/20 bg-gradient-to-br from-slate-950/95 via-purple-950/40 to-slate-950/95">
+                <div className="p-6 h-full flex flex-col relative bg-black/40">
+                  {/* Glow Effect on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5 opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none" />
+                  
+                  {/* Achievement Type */}
+                  <div className="font-mono text-xs text-pink-400 mb-3 uppercase tracking-wider glow-text">
+                    Achievement
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-lg font-bold mb-3 text-white glow-text text-center">
+                    {cert.title}
+                  </h3>
+                  
+                  {/* Certificate Image Container */}
+                  <div className="flex-1 flex items-center justify-center mb-4 p-2">
+                    <div className="relative w-full h-full max-h-[200px] rounded-lg overflow-hidden border border-purple-500/20">
+                      <img 
+                        src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png" 
+                        alt={cert.title}
+                        className="w-full h-full object-contain bg-black/50"
+                      />
+                      {/* Image overlay effect */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    </div>
+                  </div>
+                  
+                  {/* Preview Text */}
+                  <p className="text-sm text-gray-500 mb-2 text-center">
+                    Click to view details...
+                  </p>
+                  
+                  {/* Visual indicator for current card */}
+                  {index === currentCardIndex && (
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full" />
+                  )}
+                </div>
+              </div>
+              
+              {/* Card Back */}
+              <div className="card-face card-back rounded-2xl overflow-hidden card-shadow border border-cyan-500/20 bg-gradient-to-br from-slate-950/95 via-cyan-950/40 to-slate-950/95">
+                <div className="p-6 h-full flex flex-col bg-black/40">
+                  {/* Title */}
+                  <h3 className="text-xl font-bold mb-6 text-white glow-text">
+                    {cert.title}
+                  </h3>
+                  
+                  {/* Certificate Image (smaller on back) */}
+                  <div className="w-full h-32 mb-4 rounded-lg overflow-hidden border border-cyan-500/20">
+                    <img 
+                      src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png" 
+                      alt={cert.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="flex-1 text-gray-400 leading-relaxed mb-6">
+                    {cert.detail}
+                  </p>
+                  
+                  {/* Meta Info */}
+                  <div className="font-mono text-xs space-y-2">
+                    <div className="text-cyan-400 flex items-center">
+                      <Award size={16} className="mr-2" />
+                      Certified Achievement
+                    </div>
+                    <div className="text-pink-400 flex items-center">
+                      <Clock size={16} className="mr-2" />
+                      {new Date().getFullYear()}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+            
+          </div>
+        );
+      })}
+    </div>
+    
+    {/* Carousel Controls */}
+    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-6">
+      <button
+        onClick={prevCard}
+        className="w-12 h-12 rounded-full bg-slate-950/90 border border-purple-500/50 text-white flex items-center justify-center hover:bg-slate-900/90 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-purple-500/50"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      
+      <button
+        onClick={nextCard}
+        className="w-12 h-12 rounded-full bg-slate-950/90 border border-purple-500/50 text-white flex items-center justify-center hover:bg-slate-900/90 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-purple-500/50"
+      >
+        <ChevronRight size={20} />
+      </button>
+    </div>
+  </div>
+  
+  {/* Instructions */}
+  <p className="text-center text-gray-600 text-sm mt-8">
+    Click cards to flip • Use arrows or swipe to rotate
+  </p>
+</section>
       {/* Achievements Gallery */}
       <section id="achievements" className="section max-w-5xl mx-auto py-16 animate-fade-in z-10">
         <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400 text-center">Achievements & Distinctions (with Photos)</h2>
@@ -692,13 +855,12 @@ function TypingText() {
 function TechCarousel() {
   const techs = [
     "Python & Machine Learning",
-    "React.js & Node.js",
+    "Mern Stack",
     "Android Studio & Firebase",
     "TensorFlow & Computer Vision",
-    "MongoDB & Express.js",
-    "AWS & Flask Development",
-    "Java & Data Structures",
-    "YOLO & OpenCV"
+    "Gen AI",
+    "Flask Development",
+    "Wordpress",
   ];
   const [current, setCurrent] = React.useState(0);
   useEffect(() => {

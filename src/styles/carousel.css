@@ -1,0 +1,63 @@
+/* 3D Carousel Styles */
+.carousel-3d-container {
+  perspective: 1300px;
+}
+
+.carousel-3d {
+  transform-style: preserve-3d;
+}
+
+.carousel-card {
+  transform-style: preserve-3d;
+}
+
+.card-inner-3d {
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.flipped .card-inner-3d {
+  transform: rotateY(180deg);
+}
+
+/* Glitch Animation */
+@keyframes glitch {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-glitch {
+  background-size: 200% 100%;
+  animation: glitch 3s linear infinite;
+}
+
+
+
+/* Card shadow for spacing effect */
+.card-shadow {
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
