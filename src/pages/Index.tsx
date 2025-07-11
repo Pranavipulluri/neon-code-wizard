@@ -400,20 +400,30 @@ const Index = () => {
           </ul>
         </nav>
       </header>
-      {/* Hero Section */}
+      {/* Hero Section with 3D Background */}
       <section id="home" className="hero min-h-screen flex flex-col justify-center items-center text-center relative animate-fade-in pt-44 z-10">
-        {/* User Picture Avatar - Added below */}
-        <div className="flex flex-col items-center justify-center mb-6">
-          <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 156, height: 156 }}>
-            <img
-              src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
-              alt="Profile"
-              className="object-cover w-36 h-36 rounded-full border-4 border-fuchsia-400 shadow-xl"
-              style={{ background: "#16181c" }}
-            />
-          </span>
+        {/* 3D Spline Background */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <spline-viewer 
+            url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
+            className="w-full h-full"
+          ></spline-viewer>
         </div>
-        {/* Game/Storybook Effect */}
+        
+        {/* Content Overlay */}
+        <div className="relative z-10 bg-black/30 backdrop-blur-sm rounded-3xl p-8 max-w-4xl mx-auto">
+          {/* User Picture Avatar - Added below */}
+          <div className="flex flex-col items-center justify-center mb-6">
+            <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 156, height: 156 }}>
+              <img
+                src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
+                alt="Profile"
+                className="object-cover w-36 h-36 rounded-full border-4 border-fuchsia-400 shadow-xl"
+                style={{ background: "#16181c" }}
+              />
+            </span>
+           </div>
+          {/* Game/Storybook Effect */}
         <div className="w-full flex flex-col items-center mb-8">
           <div className="terminal-glow text-left font-mono px-4 py-3 text-lg max-w-xl mx-auto rounded-xl bg-gradient-to-br from-black/90 via-cyan-950/95 to-fuchsia-950/90 border border-cyan-400/40 shadow-xl animate-fade-in">
             <span className="text-fuchsia-300">Welcome Adventurer!</span>
@@ -428,9 +438,10 @@ const Index = () => {
           Full Stack Developer & AI Enthusiast
         </p>
         <TypingText />
-        <div className="mt-10">
-          <h3 className="text-xl text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
-          <TechCarousel />
+          <div className="mt-10">
+            <h3 className="text-xl text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
+            <TechCarousel />
+          </div>
         </div>
       </section>
       {/* Gallery - Your Images (rotating/animated) */}
