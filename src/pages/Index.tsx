@@ -3,6 +3,7 @@ import { Rocket } from "lucide-react";
 import ImageGallery from "../components/ImageGallery";
 import AchievementGallery from "../components/AchievementGallery";
 import AnimatedSkills from "../components/AnimatedSkills";
+import StarfieldBackground from "../components/StarfieldBackground";
 
 const animatedSections = [
   "#about",
@@ -366,14 +367,11 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-black overflow-x-hidden">
+      {/* Starfield Background */}
+      <StarfieldBackground />
+      
       {/* Cyberpunk Floating Symbols */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute w-full h-full animate-fade-in" style={{
-          background:
-            "radial-gradient(circle at 20% 55%, rgba(0,255,255,0.09) 0%, transparent 70%)," +
-            "radial-gradient(circle at 80% 20%, rgba(255,0,255,0.08) 0%, transparent 65%)," +
-            "radial-gradient(circle at 50% 80%, rgba(255,255,0,0.08) 0%, transparent 60%)",
-        }} />
         <div className="absolute left-12 top-16 text-4xl animate-float opacity-40 select-none">💻</div>
         <div className="absolute right-16 top-36 text-4xl animate-float delay-2000 opacity-40 select-none">🎨</div>
         <div className="absolute left-24 bottom-28 text-4xl animate-float delay-1000 opacity-40 select-none">⚡</div>
@@ -409,8 +407,12 @@ const Index = () => {
             <div className="w-full max-w-lg h-96 lg:h-[500px] overflow-hidden rounded-2xl">
               <spline-viewer 
                 url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
-                className="w-full h-full"
-                style={{ transform: 'scale(1.2)', transformOrigin: 'center' }}
+                className="w-full"
+                style={{ 
+                  transform: 'translateY(-200px)', 
+                  height: '800px', 
+                  width: '100%'
+                }}
               ></spline-viewer>
             </div>
           </div>
