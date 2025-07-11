@@ -1,70 +1,52 @@
-import React, { useRef, useEffect, useState } from "react";
-import "./ProjectRotator.css";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-interface Project {
+type Project = {
   title: string;
-  subtitle: string;
   description: string;
-  label: string;
-  labelColor?: string;
-  link?: string;
-}
+  tags: string[];
+};
 
 interface ProjectRotatorProps {
   projects: Project[];
 }
 
 const ProjectRotator: React.FC<ProjectRotatorProps> = ({ projects }) => {
-  const [angle, setAngle] = useState(0);
-  const angleStep = 360 / projects.length;
-
-  const rotate = (direction: "left" | "right") => {
-    setAngle(prev =>
-      direction === "left" ? prev + angleStep : prev - angleStep
-    );
-  };
-
   return (
-    <div className="carousel-container">
-      <div
-        className="carousel"
-        style={{ transform: `translateZ(-400px) rotateY(${angle}deg)` }}
-      >
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="carousel-card"
-            style={{ transform: `rotateY(${index * angleStep}deg) translateZ(400px)` }}
-          >
-            <div className="carousel-content">
-              <span
-                className="card-label"
-                style={{ color: project.labelColor || "#f0f" }}
-              >
-                {project.label}
-              </span>
-              <h2 className="card-title">{project.title}</h2>
-              <h4 className="card-subtitle">{project.subtitle}</h4>
-              <p className="card-description">{project.description}</p>
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="card-link"
-                >
-                  View Source ↗
-                </a>
-              )}
+    <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      spaceBetween={30}
+      slidesPerView={1}
+      loop={true}
+      navigation
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 4000 }}
+      breakpoints={{
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }}
+      className="pb-12"
+    >
+      {projects.map((project, index) => (
+        <SwiperSlide key={index}>
+          <div className="bg-gradient-to-br from-fuchsia-900/70 to-cyan-800/20 text-white p-6 rounded-xl shadow-lg h-full flex flex-col justify-between space-y-4 hover:scale-[1.02] transition-all duration-300 ease-in-out">
+            <h3 className="text-xl font-bold text-fuchsia-300">{project.title}</h3>
+            <p className="text-sm text-gray-300">{project.description}</p>
+            <div className="flex flex-wrap gap-2 mt-auto">
+              {project.tags.map((tag, i) => (
+                <span key={i} className="bg-fuchsia-800/40 px-3 py-1 rounded-full text-xs font-mono border border-fuchsia-400">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-      <div className="carousel-controls">
-        <button onClick={() => rotate("left")}>‹</button>
-        <button onClick={() => rotate("right")}>›</button>
-      </div>
-    </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 

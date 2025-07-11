@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Rocket, ChevronLeft, ChevronRight, Award, Clock } from "lucide-react";
+import { Rocket, ChevronLeft, ChevronRight, Award, Clock,ExternalLink, Github,  Play } from "lucide-react";
 import '../styles/carousel.css'; // ADD THIS LINE
 import ImageGallery from "../components/ImageGallery";
 import AchievementGallery from "../components/AchievementGallery";
 import AnimatedSkills from "../components/AnimatedSkills";
 import StarfieldBackground from "../components/StarfieldBackground";
 //import ProjectRotator from "../components/ProjectRotator";
+
 
 
 
@@ -29,96 +30,93 @@ type Project = {
   date: string;
 };
 
-const projects: Project[] = [
+const projectsData = [
   {
-    name: "LocalMart – AI-driven Local Shopping Platform",
-    desc:
-      "Centralizes local seller info. Empowers community & real-time inventory using e-commerce + AI.",
-    tech: [
-      "Java",
-      "Android Studio",
-      "Firebase",
-      "ML Kit"
+    id: 1,
+    name: "LocalMart",
+    subtitle: "AI-driven Local Shopping Platform",
+    description: "Centralizes local seller info. Empowers community & real-time inventory using e-commerce + AI.",
+    technologies: ["Java", "Android Studio", "Firebase", "ML Kit"],
+    date: "Oct '24",
+    images: [
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1556742111-a301076d9d18?w=400&h=250&fit=crop"
     ],
-    date: "Oct '24"
+    category: "Mobile App"
   },
   {
-    name: "SmartVend – Digitalized Sanitary Pad Vending Machine Interface",
-    desc:
-      "Web-based interface for vending, payments, monitoring and inventory management.",
-    tech: [
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Tailwind CSS",
-      "Razorpay API"
+    id: 2,
+    name: "SmartVend",
+    subtitle: "Digitalized Sanitary Pad Vending Machine Interface", 
+    description: "Web-based interface for vending, payments, monitoring and inventory management.",
+    technologies: ["Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Razorpay API"],
+    date: "Feb '25",
+    images: [
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=250&fit=crop"
     ],
-    date: "Feb '25"
+    category: "Web Application"
   },
   {
-    name: "SmartShield – AI-Powered Traffic Safety & Management",
-    desc:
-      "YOLO-based helmet detection. Real-time monitoring and asynchronous traffic control.",
-    tech: [
-      "Python",
-      "YOLO",
-      "OpenCV",
-      "TensorFlow",
-      "Flask"
+    id: 3,
+    name: "SmartShield", 
+    subtitle: "AI-Powered Traffic Safety & Management",
+    description: "YOLO-based helmet detection. Real-time monitoring and asynchronous traffic control.",
+    technologies: ["Python", "YOLO", "OpenCV", "TensorFlow", "Flask"],
+    date: "Jan '25",
+    images: [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop"
     ],
-    date: "Jan '25"
+    category: "AI/ML Project"
   },
   {
-    name: "AllMadeEasy – Community Hub Web Application",
-    desc:
-      "Integrated platform: content, tasks, rental, messaging, jobs, and community marketplace.",
-    tech: [
-      "Python (Flask)",
-      "SQLAlchemy",
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "SQLite",
-      "News API"
+    id: 4,
+    name: "AllMadeEasy",
+    subtitle: "Community Hub Web Application",
+    description: "Integrated platform: content, tasks, rental, messaging, jobs, and community marketplace.",
+    technologies: ["Python (Flask)", "SQLAlchemy", "HTML", "CSS", "JavaScript", "SQLite"],
+    date: "Feb '25", 
+    images: [
+      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop"
     ],
-    date: "Feb '25"
+    category: "Full Stack"
   },
   {
-    name: "Fake News Detection System",
-    desc:
-      "NLP+Naive Bayes for detecting fake news. TF-IDF similarity for accuracy.",
-    tech: [
-      "Scikit-learn",
-      "NewsAPI",
-      "Python"
+    id: 5,
+    name: "Fake News Detection",
+    subtitle: "Fake News Detection System",
+    description: "NLP+Naive Bayes for detecting fake news. TF-IDF similarity for accuracy.",
+    technologies: ["Scikit-learn", "NewsAPI", "Python"],
+    date: "2024",
+    images: [
+      "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1495020689067-958852a7765e?w=400&h=250&fit=crop"
     ],
-    date: "2024"
+    category: "Machine Learning"
   },
   {
-    name: "Anime Web Scraping",
-    desc:
-      "Web scraping/anime analytics with BeautifulSoup, Pandas, custom DataFrames.",
-    tech: [
-      "Python",
-      "BeautifulSoup",
-      "Pandas"
+    id: 6,
+    name: "WeatherApp",
+    subtitle: "AndroidX Winner",
+    description: "Crisp UI weather app, won at national Android workshop, finalist after live interview.",
+    technologies: ["Android", "Java", "XML", "API Integration"],
+    date: "2024",
+    images: [
+      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=250&fit=crop",
+      "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=250&fit=crop"
     ],
-    date: "2024"
-  },
-  {
-    name: "WeatherApp – AndroidX Winner",
-    desc:
-      "Crisp UI weather app, won at national Android workshop, finalist after live interview.",
-    tech: [
-      "Android",
-      "Java",
-      "XML",
-      "API Integration"
-    ],
-    date: "2024"
+    category: "Mobile App"
   }
 ];
-
 const experiences = [
   {
     org: "Saola Innovations Pvt Ltd (Remote)",
@@ -437,14 +435,15 @@ const prevCard = () => {
       </header>
       {/* Hero Section with 3D Robot */}
       <section id="home" className="hero min-h-screen flex items-center justify-center relative animate-fade-in pt-20 z-10">
-        <div className="max-w-7xl mx-auto px- grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+<div className="w-full mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           
 <div
   style={{
     width: '100%',
-    height: '600px', // More space for full robot
+    height: '550px', // More space for full robot
     overflow: 'hidden',
     position: 'relative',
+    paddingLeft: '30px'
   }}
 >
   <spline-viewer
@@ -526,11 +525,22 @@ const prevCard = () => {
           </div>
         </div>
       </section>
-      {/* Gallery - Your Images (rotating/animated) */}
-      <section id="gallery" className="section max-w-4xl mx-auto py-20 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl font-bold mb-10 text-cyan-400 text-center">Gallery</h2>
-        <ImageGallery />
+      
+      
+      {/* Education */}
+      <section id="education" className="section max-w-2xl mx-auto py-12 animate-fade-in z-10">
+        <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400">Education</h2>
+        <div className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-8 mb-3">
+          <h3 className="text-lg text-yellow-200 font-semibold mb-1">{education[0].school}</h3>
+          <p className="text-fuchsia-200 mb-1">{education[0].degree}</p>
+          <p className="text-cyan-200 mb-1">{education[0].date}</p>
+          <span className="font-mono block mb-3">GPA: <span className="text-yellow-300">{education[0].gpa}</span></span>
+          <ul className="list-disc ml-8 text-gray-300 leading-7 text-base">
+            {education[0].details.map((ed) => <li key={ed}>{ed}</li>)}
+          </ul>
+        </div>
       </section>
+
       {/* About Me */}
       <section id="about" className="section max-w-3xl mx-auto py-20 animate-fade-in z-10">
         <h2 className="neon-text text-4xl font-bold mb-6 relative text-center text-cyan-400">About Me</h2>
@@ -547,19 +557,6 @@ const prevCard = () => {
             I master: <span className="text-fuchsia-200">Python</span>, <span className="text-cyan-200">React.js</span>, <span className="text-yellow-200">TensorFlow</span>, 
             <span className="text-pink-200">Android Studio</span>, <span className="text-fuchsia-200">Node.js</span>, modern AI, and more.
           </p>
-        </div>
-      </section>
-      {/* Education */}
-      <section id="education" className="section max-w-2xl mx-auto py-12 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400">Education</h2>
-        <div className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-8 mb-3">
-          <h3 className="text-lg text-yellow-200 font-semibold mb-1">{education[0].school}</h3>
-          <p className="text-fuchsia-200 mb-1">{education[0].degree}</p>
-          <p className="text-cyan-200 mb-1">{education[0].date}</p>
-          <span className="font-mono block mb-3">GPA: <span className="text-yellow-300">{education[0].gpa}</span></span>
-          <ul className="list-disc ml-8 text-gray-300 leading-7 text-base">
-            {education[0].details.map((ed) => <li key={ed}>{ed}</li>)}
-          </ul>
         </div>
       </section>
       {/* Experience */}
@@ -585,10 +582,33 @@ const prevCard = () => {
         </div>
       </section>
       {/* Projects (rotating dynamic carousel on md+ screens, simple grid below) */}
-      <section id="projects" className="section max-w-6xl mx-auto py-20 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Featured Projects</h2>
-        <ProjectRotator projects={projects} />
-      </section>
+<section id="projects" className="section py-20 animate-fade-in z-10">
+  <div className="text-center mb-16">
+    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-6">
+      Featured Projects
+    </h1>
+    <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+      Explore my portfolio of web applications, mobile apps, and AI/ML projects. 
+      Watch the images rotate to see different views of each project.
+    </p>
+  </div>
+
+  {/* Projects Grid - Responsive */}
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+      {projectsData.map((project, index) => (
+        <ProjectCard 
+          key={project.id} 
+          project={project} 
+          index={index}
+        />
+      ))}
+    </div>
+  </div>
+
+  {/* Bottom note about image rotation */}
+  
+</section>
 
 
       {/* Skills - replace SkillTabs with AnimatedSkills */}
@@ -885,7 +905,148 @@ function TechCarousel() {
     </div>
   );
 }
+// Individual Project Card with Image Carousel
+const ProjectCard = ({ project, index }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
+  // Auto-change images every 2.5 seconds
+  useEffect(() => {
+    if (project.images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      if (!isHovered) {
+        setCurrentImageIndex((prevIndex) => 
+          (prevIndex + 1) % project.images.length
+        );
+      }
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [isHovered, project.images.length]);
+
+  const categoryColors = {
+    "Mobile App": "from-blue-500/30 to-cyan-500/30 border-cyan-400/50",
+    "Web Application": "from-green-500/30 to-emerald-500/30 border-emerald-400/50", 
+    "AI/ML Project": "from-purple-500/30 to-violet-500/30 border-violet-400/50",
+    "Full Stack": "from-orange-500/30 to-amber-500/30 border-amber-400/50",
+    "Machine Learning": "from-pink-500/30 to-rose-500/30 border-rose-400/50"
+  };
+
+  const categoryColor = categoryColors[project.category] || "from-gray-500/30 to-slate-500/30 border-slate-400/50";
+
+  return (
+    <div 
+      className="group relative bg-gray-900/95 backdrop-blur-sm border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl hover:shadow-cyan-400/40 transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/60"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Image Carousel Section */}
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+        {project.images.map((image, imgIndex) => (
+          <div
+            key={imgIndex}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              imgIndex === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            <img
+              src={image}
+              alt={`${project.name} screenshot ${imgIndex + 1}`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.src = `https://via.placeholder.com/400x250/1a1a2e/16a085?text=${project.name}`;
+              }}
+            />
+          </div>
+        ))}
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent z-20" />
+        
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3 z-30">
+          <span className={`bg-gradient-to-r ${categoryColor} backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white border`}>
+            {project.category}
+          </span>
+        </div>
+        
+        {/* Date Badge */}
+        <div className="absolute top-3 right-3 z-30">
+          <span className="bg-black/70 backdrop-blur-sm text-cyan-300 px-3 py-1 rounded-full text-xs font-medium border border-cyan-400/40">
+            {project.date}
+          </span>
+        </div>
+
+        {/* Image Counter Dots */}
+        {project.images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
+            {project.images.map((_, imgIndex) => (
+              <div
+                key={imgIndex}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  imgIndex === currentImageIndex 
+                    ? 'bg-cyan-400 scale-125 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Hover Overlay with Action Buttons */}
+        <div className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center gap-4 transition-opacity duration-300 z-40 ${
+          isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}>
+          <button className="bg-cyan-500/90 hover:bg-cyan-400 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
+            <ExternalLink size={20} />
+          </button>
+          <button className="bg-gray-700/90 hover:bg-gray-600 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
+            <Github size={20} />
+          </button>
+        </div>
+
+        {/* Live indicator for rotating images */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30">
+          <div className={`w-2 h-2 bg-green-400 rounded-full animate-pulse ${isHovered ? 'opacity-50' : 'opacity-100'}`} />
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors duration-300">
+          {project.name}
+        </h3>
+        
+        <h4 className="text-cyan-400 font-medium text-sm mb-3">
+          {project.subtitle}
+        </h4>
+
+        <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.slice(0, 3).map((tech, techIndex) => (
+            <span
+              key={techIndex}
+              className="bg-gray-800/60 text-gray-300 px-2 py-1 rounded text-xs border border-gray-700 hover:border-cyan-400/50 transition-colors duration-200"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.technologies.length > 3 && (
+            <span className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 px-2 py-1 rounded text-xs border border-cyan-400/30">
+              +{project.technologies.length - 3}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+    </div>
+  );
+};
 // Rotating (animated) project carousel for projects
 function ProjectRotator({ projects }: { projects: Project[] }) {
   const [index, setIndex] = React.useState(0);
