@@ -406,7 +406,7 @@ const Index = () => {
           
           {/* Left Side - 3D Robot */}
           <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-lg h-96 lg:h-[500px]">
+            <div className="w-full max-w-lg h-96 lg:h-[500px] overflow-hidden rounded-2xl">
               <spline-viewer 
                 url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
                 className="w-full h-full"
@@ -417,43 +417,68 @@ const Index = () => {
 
           {/* Right Side - Greeting & Portfolio Content */}
           <div className="text-center lg:text-left space-y-6">
-            {/* Profile Picture */}
-            <div className="flex justify-center lg:justify-start mb-6">
-              <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 156, height: 156 }}>
+            
+            {/* Mobile: Greeting with Photo beside it */}
+            <div className="lg:hidden">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <span className="inline-block rounded-full ring-2 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 80, height: 80 }}>
+                  <img
+                    src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
+                    alt="Profile"
+                    className="object-cover w-16 h-16 rounded-full border-2 border-fuchsia-400 shadow-xl"
+                    style={{ background: "#16181c" }}
+                  />
+                </span>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-cyan-400 neon-text">
+                    Hi! This is Pranavi
+                  </div>
+                  <div className="text-lg text-fuchsia-300 font-semibold">
+                    Nice to meet you! 👋
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop: Profile Picture separate */}
+            <div className="hidden lg:flex justify-start mb-6">
+              <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 120, height: 120 }}>
                 <img
                   src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
                   alt="Profile"
-                  className="object-cover w-36 h-36 rounded-full border-4 border-fuchsia-400 shadow-xl"
+                  className="object-cover w-28 h-28 rounded-full border-4 border-fuchsia-400 shadow-xl"
                   style={{ background: "#16181c" }}
                 />
               </span>
             </div>
 
-            {/* Greeting Message */}
-            <div className="space-y-4">
+            {/* Desktop: Greeting Message */}
+            <div className="hidden lg:block space-y-4">
               <div className="text-3xl lg:text-4xl font-bold text-cyan-400 neon-text">
                 Hi! This is Pranavi
               </div>
               <div className="text-xl lg:text-2xl text-fuchsia-300 font-semibold">
                 Nice to meet you! 👋
               </div>
-              <div className="text-lg text-gray-300 max-w-lg">
-                Welcome to my digital realm. I'm a Full Stack Developer passionate about creating innovative web solutions and exploring the endless possibilities of technology.
-              </div>
+            </div>
+
+            {/* Description */}
+            <div className="text-base lg:text-lg text-gray-300 max-w-lg mx-auto lg:mx-0">
+              Welcome to my digital realm. I'm a Full Stack Developer passionate about creating innovative web solutions and exploring the endless possibilities of technology.
             </div>
 
             {/* Main Title */}
-            <h1 className="neon-text text-4xl lg:text-6xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">
+            <h1 className="neon-text text-3xl lg:text-5xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">
               Pranavi Pulluri
             </h1>
-            <p className="subtitle neon-text text-xl lg:text-2xl mb-4 font-semibold text-fuchsia-300">
+            <p className="subtitle neon-text text-lg lg:text-2xl mb-4 font-semibold text-fuchsia-300">
               Full Stack Developer & AI Enthusiast
             </p>
             
             <TypingText />
             
             <div className="mt-8">
-              <h3 className="text-lg text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
+              <h3 className="text-base lg:text-lg text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
               <TechCarousel />
             </div>
           </div>
