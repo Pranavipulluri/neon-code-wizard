@@ -5,8 +5,9 @@ import ImageGallery from "../components/ImageGallery";
 import AchievementGallery from "../components/AchievementGallery";
 import AnimatedSkills from "../components/AnimatedSkills";
 import StarfieldBackground from "../components/StarfieldBackground";
+import TechSkillsGrid from "../components/TechSkillsGrid"
 //import ProjectRotator from "../components/ProjectRotator";
-
+import GooeyNav from '../components/GooeyNav'
 
 
 
@@ -344,30 +345,164 @@ const socials = [
     icon: "📱"
   },
 ];
+const ProjectCard = ({ project, index }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
+  // Auto-change images every 2.5 seconds
+  useEffect(() => {
+    if (project.images.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      if (!isHovered) {
+        setCurrentImageIndex((prevIndex) => 
+          (prevIndex + 1) % project.images.length
+        );
+      }
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [isHovered, project.images.length]);
+
+  const categoryColors = {
+    "Mobile App": "from-blue-500/30 to-cyan-500/30 border-cyan-400/50",
+    "Web Application": "from-green-500/30 to-emerald-500/30 border-emerald-400/50", 
+    "AI/ML Project": "from-purple-500/30 to-violet-500/30 border-violet-400/50",
+    "Full Stack": "from-orange-500/30 to-amber-500/30 border-amber-400/50",
+    "Machine Learning": "from-pink-500/30 to-rose-500/30 border-rose-400/50"
+  };
+
+  const categoryColor = categoryColors[project.category] || "from-gray-500/30 to-slate-500/30 border-slate-400/50";
+
+  return (
+    <div 
+      className="group relative bg-gray-900/95 backdrop-blur-sm border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl hover:shadow-cyan-400/40 transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/60"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Image Carousel Section */}
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+        {project.images.map((image, imgIndex) => (
+          <div
+            key={imgIndex}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              imgIndex === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            <img
+              src={image}
+              alt={`${project.name} screenshot ${imgIndex + 1}`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.src = `https://via.placeholder.com/400x250/1a1a2e/16a085?text=${project.name}`;
+              }}
+            />
+          </div>
+        ))}
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent z-20" />
+        
+        {/* Category Badge */}
+        <div className="absolute top-3 left-3 z-30">
+          <span className={`bg-gradient-to-r ${categoryColor} backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white border`}>
+            {project.category}
+          </span>
+        </div>
+        
+        {/* Date Badge */}
+        <div className="absolute top-3 right-3 z-30">
+          <span className="bg-black/70 backdrop-blur-sm text-cyan-300 px-3 py-1 rounded-full text-xs font-medium border border-cyan-400/40">
+            {project.date}
+          </span>
+        </div>
+
+        {/* Image Counter Dots */}
+        {project.images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
+            {project.images.map((_, imgIndex) => (
+              <div
+                key={imgIndex}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  imgIndex === currentImageIndex 
+                    ? 'bg-cyan-400 scale-125 shadow-lg shadow-cyan-400/50' 
+                    : 'bg-white/50 hover:bg-white/70'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Hover Overlay with Action Buttons */}
+        <div className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center gap-4 transition-opacity duration-300 z-40 ${
+          isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}>
+          <button className="bg-cyan-500/90 hover:bg-cyan-400 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
+            <ExternalLink size={20} />
+          </button>
+          <button className="bg-gray-700/90 hover:bg-gray-600 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
+            <Github size={20} />
+          </button>
+        </div>
+
+        {/* Live indicator for rotating images */}
+        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30">
+          <div className={`w-2 h-2 bg-green-400 rounded-full animate-pulse ${isHovered ? 'opacity-50' : 'opacity-100'}`} />
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors duration-300">
+          {project.name}
+        </h3>
+        
+        <h4 className="text-cyan-400 font-medium text-sm mb-3">
+          {project.subtitle}
+        </h4>
+
+        <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.slice(0, 3).map((tech, techIndex) => (
+            <span
+              key={techIndex}
+              className="bg-gray-800/60 text-gray-300 px-2 py-1 rounded text-xs border border-gray-700 hover:border-cyan-400/50 transition-colors duration-200"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.technologies.length > 3 && (
+            <span className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 px-2 py-1 rounded text-xs border border-cyan-400/30">
+              +{project.technologies.length - 3}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+    </div>
+  );
+};
 const Index = () => {
 const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [carouselRotation, setCarouselRotation] = useState(0);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
+  
 
   // ✅ ADD THESE HANDLER FUNCTIONS HERE
   // ✅ UPDATED HANDLER FUNCTIONS
 
 const handleCardFlip = (index: number) => {
-  console.log('Card clicked:', index, 'Current card:', currentCardIndex);
-  
-  // Only flip if this is the current card
-  if (index === currentCardIndex) {
-    console.log('Flipping card:', index);
-    setFlippedCards(prev => {
-      const newFlipped = prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index];
-      console.log('Flipped cards:', newFlipped);
-      return newFlipped;
-    });
-  }
+  setFlippedCards(prev =>
+    prev.includes(index)
+      ? prev.filter(i => i !== index)
+      : [...prev, index]
+  );
 };
+
 const nextCard = () => {
   setCarouselRotation(prev => prev - (360 / certifications.length));
   // Reset flipped cards when rotating
@@ -413,26 +548,38 @@ const prevCard = () => {
         <div className="absolute right-24 bottom-12 text-4xl animate-float delay-3000 opacity-40 select-none">🔥</div>
       </div>
       {/* Header */}
-      <header className="fixed w-full top-0 z-30 bg-black/85 backdrop-blur-sm border-b border-cyan-400/40 px-6 py-3">
-        <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <span className="text-2xl font-bold text-cyan-400 neon-text tracking-widest flex items-center gap-1">
-            <Rocket className="inline mb-1 text-fuchsia-400" size={28} />
-            PP.dev
-          </span>
-          <ul className="hidden md:flex space-x-8 font-mono text-lg">
-            <li><a href="#home" className="story-link">Home</a></li>
-            <li><a href="#about" className="story-link">About</a></li>
-            <li><a href="#education" className="story-link">Education</a></li>
-            <li><a href="#experience" className="story-link">Experience</a></li>
-            <li><a href="#projects" className="story-link">Projects</a></li>
-            <li><a href="#skills" className="story-link">Skills</a></li>
-            <li><a href="#certifications" className="story-link">Certifications</a></li>
-            <li><a href="#achievements" className="story-link">Achievements</a></li>
-            <li><a href="#activities" className="story-link">Clubs/Activities</a></li>
-            <li><a href="#contact" className="story-link">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+<header className="fixed w-full top-0 z-30 bg-black/85 backdrop-blur-sm border-b border-cyan-400/40 px-6 py-3">
+  <nav className="flex items-center justify-between max-w-7xl mx-auto">
+    <span className="text-2xl font-bold text-cyan-400 neon-text tracking-widest flex items-center gap-1">
+      <Rocket className="inline mb-1 text-fuchsia-400" size={28} />
+      Pranavi Pulluri
+    </span>
+    <div style={{ position: 'relative', zIndex: 20, marginTop: '0px' }}>
+  <GooeyNav
+    items={[
+      { label: "Home", href: "#home" },
+      { label: "About", href: "#about" },
+      { label: "Experience", href: "#experience" },
+      { label: "Projects", href: "#projects" },
+      { label: "Skills", href: "#skills" },
+      { label: "Certifications", href: "#certifications" },
+      { label: "Contact", href: "#contact" },
+    ]}
+    particleCount={15}
+    particleDistances={[90, 10]}
+    particleR={100}
+    initialActiveIndex={0}
+    animationTime={600}
+    timeVariance={300}
+    colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+  />
+</div>
+
+  </nav>
+</header>
+
+{/* GooeyNav Menu Under Header */}
+
       {/* Hero Section with 3D Robot */}
       <section id="home" className="hero min-h-screen flex items-center justify-center relative animate-fade-in pt-20 z-10">
 <div className="w-full mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -611,51 +758,54 @@ const prevCard = () => {
 </section>
 
 
-      {/* Skills - replace SkillTabs with AnimatedSkills */}
-      <section id="skills" className="section max-w-6xl mx-auto py-20 animate-fade-in z-10">
-        <h2 className="neon-text text-3xl md:text-4xl font-bold mb-10 text-cyan-400">Technical Skills</h2>
-        <AnimatedSkills />
-        
-        {/* Coding Profiles */}
-        <div className="mt-16 text-center">
-          <h3 className="neon-text text-2xl font-bold mb-8 text-fuchsia-400">Coding Profiles</h3>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="https://smartinterviews.in/profile/pulluripranavi" target="_blank" rel="noopener noreferrer" 
-               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
-              <span className="text-2xl">🧠</span>
-              <div className="text-left">
-                <div className="text-cyan-300 font-semibold">SmartInterviews</div>
-                <div className="text-gray-400 text-sm">Problem Solving</div>
-              </div>
-            </a>
-            <a href="https://www.hackerrank.com/profile/pulluripranavi" target="_blank" rel="noopener noreferrer"
-               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
-              <span className="text-2xl">⚡</span>
-              <div className="text-left">
-                <div className="text-cyan-300 font-semibold">HackerRank</div>
-                <div className="text-gray-400 text-sm">Algorithms & DS</div>
-              </div>
-            </a>
-            <a href="https://leetcode.com/u/pulluripranavi/" target="_blank" rel="noopener noreferrer"
-               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
-              <span className="text-2xl">💡</span>
-              <div className="text-left">
-                <div className="text-cyan-300 font-semibold">LeetCode</div>
-                <div className="text-gray-400 text-sm">Competitive Coding</div>
-              </div>
-            </a>
-            <a href="https://www.interviewbit.com/profile/pranavi-pullurib9/" target="_blank" rel="noopener noreferrer"
-               className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
-              <span className="text-2xl">🎯</span>
-              <div className="text-left">
-                <div className="text-cyan-300 font-semibold">InterviewBit</div>
-                <div className="text-gray-400 text-sm">Interview Prep</div>
-              </div>
-            </a>
-          </div>
+      {/* Skills - Tech Grid Display */}
+<section id="skills" className="animate-fade-in z-10">
+  <TechSkillsGrid />
+  
+  {/* Coding Profiles */}
+  <div className="bg-black py-16">
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="text-center">
+        <h3 className="neon-text text-2xl font-bold mb-8 text-fuchsia-400">Coding Profiles</h3>
+        <div className="flex flex-wrap justify-center gap-6">
+          <a href="https://smartinterviews.in/profile/pulluripranavi" target="_blank" rel="noopener noreferrer" 
+             className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+            <span className="text-2xl">🧠</span>
+            <div className="text-left">
+              <div className="text-cyan-300 font-semibold">SmartInterviews</div>
+              <div className="text-gray-400 text-sm">Problem Solving</div>
+            </div>
+          </a>
+          <a href="https://www.hackerrank.com/profile/pulluripranavi" target="_blank" rel="noopener noreferrer"
+             className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+            <span className="text-2xl">⚡</span>
+            <div className="text-left">
+              <div className="text-cyan-300 font-semibold">HackerRank</div>
+              <div className="text-gray-400 text-sm">Algorithms & DS</div>
+            </div>
+          </a>
+          <a href="https://leetcode.com/u/pulluripranavi/" target="_blank" rel="noopener noreferrer"
+             className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+            <span className="text-2xl">💡</span>
+            <div className="text-left">
+              <div className="text-cyan-300 font-semibold">LeetCode</div>
+              <div className="text-gray-400 text-sm">Competitive Coding</div>
+            </div>
+          </a>
+          <a href="https://www.interviewbit.com/profile/pranavi-pullurib9/" target="_blank" rel="noopener noreferrer"
+             className="bg-gradient-to-br from-cyan-900/70 via-fuchsia-900/20 to-yellow-900/30 neon-border rounded-xl p-4 hover:scale-105 transition-transform duration-300 hover:shadow-cyan-400/40 flex items-center gap-3 min-w-[200px]">
+            <span className="text-2xl">🎯</span>
+            <div className="text-left">
+              <div className="text-cyan-300 font-semibold">InterviewBit</div>
+              <div className="text-gray-400 text-sm">Interview Prep</div>
+            </div>
+          </a>
         </div>
-      </section>
-      {/* Certifications */}
+      </div>
+    </div>
+  </div>
+</section>
+        
 
 {/* Certifications */}
 <section id="certifications" className="section max-w-7xl mx-auto py-20 animate-fade-in z-10 relative">
@@ -804,6 +954,7 @@ const prevCard = () => {
         </ul>
       </section>
       {/* Clubs/Activities */}
+      
       <section id="activities" className="section max-w-4xl mx-auto py-16 animate-fade-in z-10">
         <h2 className="neon-text text-3xl font-bold mb-6 text-cyan-400">Clubs & Activities</h2>
         <ul className="text-lg font-mono text-yellow-100 list-disc ml-8 space-y-2">
@@ -906,147 +1057,7 @@ function TechCarousel() {
   );
 }
 // Individual Project Card with Image Carousel
-const ProjectCard = ({ project, index }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-change images every 2.5 seconds
-  useEffect(() => {
-    if (project.images.length <= 1) return;
-    
-    const interval = setInterval(() => {
-      if (!isHovered) {
-        setCurrentImageIndex((prevIndex) => 
-          (prevIndex + 1) % project.images.length
-        );
-      }
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, [isHovered, project.images.length]);
-
-  const categoryColors = {
-    "Mobile App": "from-blue-500/30 to-cyan-500/30 border-cyan-400/50",
-    "Web Application": "from-green-500/30 to-emerald-500/30 border-emerald-400/50", 
-    "AI/ML Project": "from-purple-500/30 to-violet-500/30 border-violet-400/50",
-    "Full Stack": "from-orange-500/30 to-amber-500/30 border-amber-400/50",
-    "Machine Learning": "from-pink-500/30 to-rose-500/30 border-rose-400/50"
-  };
-
-  const categoryColor = categoryColors[project.category] || "from-gray-500/30 to-slate-500/30 border-slate-400/50";
-
-  return (
-    <div 
-      className="group relative bg-gray-900/95 backdrop-blur-sm border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl hover:shadow-cyan-400/40 transition-all duration-300 hover:scale-[1.02] hover:border-cyan-400/60"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Image Carousel Section */}
-      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
-        {project.images.map((image, imgIndex) => (
-          <div
-            key={imgIndex}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              imgIndex === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            <img
-              src={image}
-              alt={`${project.name} screenshot ${imgIndex + 1}`}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.src = `https://via.placeholder.com/400x250/1a1a2e/16a085?text=${project.name}`;
-              }}
-            />
-          </div>
-        ))}
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent z-20" />
-        
-        {/* Category Badge */}
-        <div className="absolute top-3 left-3 z-30">
-          <span className={`bg-gradient-to-r ${categoryColor} backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-white border`}>
-            {project.category}
-          </span>
-        </div>
-        
-        {/* Date Badge */}
-        <div className="absolute top-3 right-3 z-30">
-          <span className="bg-black/70 backdrop-blur-sm text-cyan-300 px-3 py-1 rounded-full text-xs font-medium border border-cyan-400/40">
-            {project.date}
-          </span>
-        </div>
-
-        {/* Image Counter Dots */}
-        {project.images.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
-            {project.images.map((_, imgIndex) => (
-              <div
-                key={imgIndex}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  imgIndex === currentImageIndex 
-                    ? 'bg-cyan-400 scale-125 shadow-lg shadow-cyan-400/50' 
-                    : 'bg-white/50 hover:bg-white/70'
-                }`}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Hover Overlay with Action Buttons */}
-        <div className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center gap-4 transition-opacity duration-300 z-40 ${
-          isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}>
-          <button className="bg-cyan-500/90 hover:bg-cyan-400 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
-            <ExternalLink size={20} />
-          </button>
-          <button className="bg-gray-700/90 hover:bg-gray-600 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 shadow-lg">
-            <Github size={20} />
-          </button>
-        </div>
-
-        {/* Live indicator for rotating images */}
-        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30">
-          <div className={`w-2 h-2 bg-green-400 rounded-full animate-pulse ${isHovered ? 'opacity-50' : 'opacity-100'}`} />
-        </div>
-      </div>
-
-      {/* Content Section */}
-      <div className="p-6">
-        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-cyan-300 transition-colors duration-300">
-          {project.name}
-        </h3>
-        
-        <h4 className="text-cyan-400 font-medium text-sm mb-3">
-          {project.subtitle}
-        </h4>
-
-        <p className="text-gray-400 text-sm leading-relaxed mb-4 line-clamp-2">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.slice(0, 3).map((tech, techIndex) => (
-            <span
-              key={techIndex}
-              className="bg-gray-800/60 text-gray-300 px-2 py-1 rounded text-xs border border-gray-700 hover:border-cyan-400/50 transition-colors duration-200"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > 3 && (
-            <span className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-300 px-2 py-1 rounded text-xs border border-cyan-400/30">
-              +{project.technologies.length - 3}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-    </div>
-  );
-};
 // Rotating (animated) project carousel for projects
 function ProjectRotator({ projects }: { projects: Project[] }) {
   const [index, setIndex] = React.useState(0);

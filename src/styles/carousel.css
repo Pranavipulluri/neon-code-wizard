@@ -2,7 +2,85 @@
 .carousel-3d-container {
   perspective: 1300px;
 }
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-inner-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+  position: relative;
+}
 
+.card-inner-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+  position: relative;
+}
+.card-inner-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-inner-3d.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+
+.card-inner-3d.flipped {
+  transform: rotateY(180deg);
+}
+
+
+.card-face {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.neon-text {
+  text-shadow: 0 0 5px currentColor;
+}
+
+.neon-border {
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.1);
+}
+
+.story-link {
+  color: #22d3ee;
+  transition: all 0.3s ease;
+}
+
+.story-link:hover {
+  color: #06b6d4;
+  text-shadow: 0 0 5px currentColor;
+}
 .carousel-3d {
   transform-style: preserve-3d;
 }
