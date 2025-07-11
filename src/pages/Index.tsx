@@ -400,47 +400,62 @@ const Index = () => {
           </ul>
         </nav>
       </header>
-      {/* Hero Section with 3D Background */}
-      <section id="home" className="hero min-h-screen flex flex-col justify-center items-center text-center relative animate-fade-in pt-44 z-10">
-        {/* 3D Spline Background */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <spline-viewer 
-            url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
-            className="w-full h-full"
-          ></spline-viewer>
-        </div>
-        
-        {/* Content Overlay */}
-        <div className="relative z-10 bg-black/30 backdrop-blur-sm rounded-3xl p-8 max-w-4xl mx-auto">
-          {/* User Picture Avatar - Added below */}
-          <div className="flex flex-col items-center justify-center mb-6">
-            <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 156, height: 156 }}>
-              <img
-                src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
-                alt="Profile"
-                className="object-cover w-36 h-36 rounded-full border-4 border-fuchsia-400 shadow-xl"
-                style={{ background: "#16181c" }}
-              />
-            </span>
-           </div>
-          {/* Game/Storybook Effect */}
-        <div className="w-full flex flex-col items-center mb-8">
-          <div className="terminal-glow text-left font-mono px-4 py-3 text-lg max-w-xl mx-auto rounded-xl bg-gradient-to-br from-black/90 via-cyan-950/95 to-fuchsia-950/90 border border-cyan-400/40 shadow-xl animate-fade-in">
-            <span className="text-fuchsia-300">Welcome Adventurer!</span>
-            <br/>
-            <span>Start your journey: <span className="text-cyan-300">_an interactive portfolio quest_</span></span>
-            <br/>
-            <span className="text-fuchsia-400">[Press down ↓ to explore]</span>
+      {/* Hero Section with 3D Robot */}
+      <section id="home" className="hero min-h-screen flex items-center justify-center relative animate-fade-in pt-20 z-10">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          
+          {/* Left Side - 3D Robot */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="w-full max-w-lg h-96 lg:h-[500px]">
+              <spline-viewer 
+                url="https://prod.spline.design/fNjHH6WGENeLgxMD/scene.splinecode"
+                className="w-full h-full"
+                style={{ transform: 'scale(1.2)', transformOrigin: 'center' }}
+              ></spline-viewer>
+            </div>
           </div>
-        </div>
-        <h1 className="neon-text text-6xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">Pranavi Pulluri</h1>
-        <p className="subtitle neon-text text-2xl mb-4 font-semibold text-fuchsia-300">
-          Full Stack Developer & AI Enthusiast
-        </p>
-        <TypingText />
-          <div className="mt-10">
-            <h3 className="text-xl text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
-            <TechCarousel />
+
+          {/* Right Side - Greeting & Portfolio Content */}
+          <div className="text-center lg:text-left space-y-6">
+            {/* Profile Picture */}
+            <div className="flex justify-center lg:justify-start mb-6">
+              <span className="inline-block rounded-full ring-4 ring-cyan-400 shadow-xl bg-gradient-to-br from-fuchsia-900/70 via-black to-cyan-700/40 p-1 animate-fade-in" style={{ width: 156, height: 156 }}>
+                <img
+                  src="/lovable-uploads/506c4ab2-b5d0-4871-a0b1-1a2ab012a5e9.png"
+                  alt="Profile"
+                  className="object-cover w-36 h-36 rounded-full border-4 border-fuchsia-400 shadow-xl"
+                  style={{ background: "#16181c" }}
+                />
+              </span>
+            </div>
+
+            {/* Greeting Message */}
+            <div className="space-y-4">
+              <div className="text-3xl lg:text-4xl font-bold text-cyan-400 neon-text">
+                Hi! This is Pranavi
+              </div>
+              <div className="text-xl lg:text-2xl text-fuchsia-300 font-semibold">
+                Nice to meet you! 👋
+              </div>
+              <div className="text-lg text-gray-300 max-w-lg">
+                Welcome to my digital realm. I'm a Full Stack Developer passionate about creating innovative web solutions and exploring the endless possibilities of technology.
+              </div>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="neon-text text-4xl lg:text-6xl font-extrabold mb-2 tracking-widest text-cyan-400 drop-shadow-[0_0_30px_cyan]">
+              Pranavi Pulluri
+            </h1>
+            <p className="subtitle neon-text text-xl lg:text-2xl mb-4 font-semibold text-fuchsia-300">
+              Full Stack Developer & AI Enthusiast
+            </p>
+            
+            <TypingText />
+            
+            <div className="mt-8">
+              <h3 className="text-lg text-cyan-200 mb-5 font-mono tracking-wide animate-pulse">Technologies & Tools I Master</h3>
+              <TechCarousel />
+            </div>
           </div>
         </div>
       </section>
